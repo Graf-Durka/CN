@@ -1,0 +1,12 @@
+,icmp_seq,ttl,time,rtt,domain
+0,4,113,217,191.605,google.com
+1,4,57,143,128.555,yandex.ru
+2,4,54,163,128.533,github.com
+3,4,58,161,126.332,ok.ru
+4,4,58,82.7,85.754,stackoverflow.com
+5,4,35,264,266.941,rutube.com
+6,4,56,154,139.045,vk.com
+7,4,55,158,110.654,mail.ru
+8,4,58,158,123.854,habr.com
+9,4,55,151,120.878,wikipedia.org
+10,4,64,0.084,0.071,youtube.com
