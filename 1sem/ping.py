@@ -1,23 +1,25 @@
-import pandas as pd
 import subprocess
+
+import pandas as pd
 
 
 def ping_net(name):
     stats = subprocess.run(["ping", "-c", "4",  name], capture_output=True, text=True)
+
+    text = stats.stdout.split()
+    pars[text[-5]] = (text[-2]).split("/")[1]
+
     pars = {}
     temp = ""
     key = ""
     flag = False
-    text = stats.stdout.split()
     
     for symbol in stats.stdout:
-        
         if symbol == "=":
             flag = True
             key = temp
             temp = ""
         elif symbol == " " or symbol == "\n":
-    
             if flag and key and temp:
                 pars[key] = temp
                 key = ""
@@ -26,8 +28,6 @@ def ping_net(name):
             temp = ""
         else:
             temp += symbol
-    
-    pars[text[-5]] = (text[-2]).split("/")[1]
 
     return pars
 
@@ -46,11 +46,11 @@ domains = [
 ]
 
 results = []
+
 for domain in domains:
-    res = ping_net(domain)
-    res["domain"] = domain
-    results.append(res)
+    result = ping_net(domain)
+    result["domain"] = domain
+    results.append(result)
 
 data = pd.DataFrame(results)
 data.to_csv('test.csv')
-print(data)
