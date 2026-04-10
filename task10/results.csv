@@ -1,0 +1,94 @@
+phase,domain,ip,hop,status,hop_address,rtt_ms,raw_line
+dns,wikipedia.org,185.15.59.224,,resolved,,,
+traceroute,wikipedia.org,185.15.59.224,1,timeout,,,1  *
+traceroute,wikipedia.org,185.15.59.224,2,ok,37.194.2.253,4.191,2  37.194.2.253  4.191 ms
+traceroute,wikipedia.org,185.15.59.224,3,timeout,,,3  *
+traceroute,wikipedia.org,185.15.59.224,4,ok,10.245.138.254,4.475,4  10.245.138.254  4.475 ms
+traceroute,wikipedia.org,185.15.59.224,5,ok,178.49.129.82,4.421,5  178.49.129.82  4.421 ms
+traceroute,wikipedia.org,185.15.59.224,6,ok,139.45.236.45,182.976,6  139.45.236.45  182.976 ms
+traceroute,wikipedia.org,185.15.59.224,7,ok,213.248.97.52,182.921,7  213.248.97.52  182.921 ms
+traceroute,wikipedia.org,185.15.59.224,8,ok,62.115.139.102,182.876,8  62.115.139.102  182.876 ms
+traceroute,wikipedia.org,185.15.59.224,9,timeout,,,9  *
+traceroute,wikipedia.org,185.15.59.224,10,timeout,,,10  *
+traceroute,wikipedia.org,185.15.59.224,11,timeout,,,11  *
+traceroute,wikipedia.org,185.15.59.224,12,timeout,,,12  *
+traceroute,wikipedia.org,185.15.59.224,13,timeout,,,13  *
+traceroute,wikipedia.org,185.15.59.224,14,timeout,,,14  *
+traceroute,wikipedia.org,185.15.59.224,15,timeout,,,15  *
+traceroute,wikipedia.org,185.15.59.224,16,timeout,,,16  *
+traceroute,wikipedia.org,185.15.59.224,17,timeout,,,17  *
+traceroute,wikipedia.org,185.15.59.224,18,timeout,,,18  *
+traceroute,wikipedia.org,185.15.59.224,19,timeout,,,19  *
+traceroute,wikipedia.org,185.15.59.224,20,timeout,,,20  *
+traceroute,wikipedia.org,185.15.59.224,21,timeout,,,21  *
+traceroute,wikipedia.org,185.15.59.224,22,timeout,,,22  *
+traceroute,wikipedia.org,185.15.59.224,23,timeout,,,23  *
+traceroute,wikipedia.org,185.15.59.224,24,timeout,,,24  *
+traceroute,wikipedia.org,185.15.59.224,25,timeout,,,25  *
+traceroute,wikipedia.org,185.15.59.224,26,timeout,,,26  *
+traceroute,wikipedia.org,185.15.59.224,27,timeout,,,27  *
+traceroute,wikipedia.org,185.15.59.224,28,timeout,,,28  *
+traceroute,wikipedia.org,185.15.59.224,29,timeout,,,29  *
+traceroute,wikipedia.org,185.15.59.224,30,timeout,,,30  *
+dns,yandex.ru,213.180.193.56,,resolved,,,
+traceroute,yandex.ru,213.180.193.56,1,timeout,,,1  *
+traceroute,yandex.ru,213.180.193.56,2,ok,37.194.2.253,4.273,2  37.194.2.253  4.273 ms
+traceroute,yandex.ru,213.180.193.56,3,timeout,,,3  *
+traceroute,yandex.ru,213.180.193.56,4,ok,10.245.138.254,2.837,4  10.245.138.254  2.837 ms
+traceroute,yandex.ru,213.180.193.56,5,ok,178.49.129.82,3.010,5  178.49.129.82  3.010 ms
+traceroute,yandex.ru,213.180.193.56,6,ok,169.254.0.121,43.721,6  169.254.0.121  43.721 ms
+traceroute,yandex.ru,213.180.193.56,7,ok,169.254.0.124,41.971,7  169.254.0.124  41.971 ms
+traceroute,yandex.ru,213.180.193.56,8,timeout,,,8  *
+traceroute,yandex.ru,213.180.193.56,9,timeout,,,9  *
+traceroute,yandex.ru,213.180.193.56,10,timeout,,,10  *
+traceroute,yandex.ru,213.180.193.56,11,timeout,,,11  *
+traceroute,yandex.ru,213.180.193.56,12,timeout,,,12  *
+traceroute,yandex.ru,213.180.193.56,13,timeout,,,13  *
+traceroute,yandex.ru,213.180.193.56,14,timeout,,,14  *
+traceroute,yandex.ru,213.180.193.56,15,timeout,,,15  *
+traceroute,yandex.ru,213.180.193.56,16,timeout,,,16  *
+traceroute,yandex.ru,213.180.193.56,17,timeout,,,17  *
+traceroute,yandex.ru,213.180.193.56,18,timeout,,,18  *
+traceroute,yandex.ru,213.180.193.56,19,timeout,,,19  *
+traceroute,yandex.ru,213.180.193.56,20,timeout,,,20  *
+traceroute,yandex.ru,213.180.193.56,21,timeout,,,21  *
+traceroute,yandex.ru,213.180.193.56,22,timeout,,,22  *
+traceroute,yandex.ru,213.180.193.56,23,timeout,,,23  *
+traceroute,yandex.ru,213.180.193.56,24,timeout,,,24  *
+traceroute,yandex.ru,213.180.193.56,25,timeout,,,25  *
+traceroute,yandex.ru,213.180.193.56,26,timeout,,,26  *
+traceroute,yandex.ru,213.180.193.56,27,timeout,,,27  *
+traceroute,yandex.ru,213.180.193.56,28,timeout,,,28  *
+traceroute,yandex.ru,213.180.193.56,29,timeout,,,29  *
+traceroute,yandex.ru,213.180.193.56,30,timeout,,,30  *
+dns,github.com,140.82.121.3,,resolved,,,
+traceroute,github.com,140.82.121.3,1,timeout,,,1  *
+traceroute,github.com,140.82.121.3,2,ok,37.194.2.253,4.283,2  37.194.2.253  4.283 ms
+traceroute,github.com,140.82.121.3,3,timeout,,,3  *
+traceroute,github.com,140.82.121.3,4,ok,10.245.138.254,5.223,4  10.245.138.254  5.223 ms
+traceroute,github.com,140.82.121.3,5,ok,178.49.128.6,4.044,5  178.49.128.6  4.044 ms
+traceroute,github.com,140.82.121.3,6,ok,213.248.97.53,47.240,6  213.248.97.53  47.240 ms
+traceroute,github.com,140.82.121.3,7,ok,213.248.97.52,44.539,7  213.248.97.52  44.539 ms
+traceroute,github.com,140.82.121.3,8,ok,62.115.139.51,53.910,8  62.115.139.51  53.910 ms
+traceroute,github.com,140.82.121.3,9,ok,62.115.143.29,92.976,9  62.115.143.29  92.976 ms
+traceroute,github.com,140.82.121.3,10,ok,62.115.124.119,87.483,10  62.115.124.119  87.483 ms
+traceroute,github.com,140.82.121.3,11,ok,62.115.182.171,77.453,11  62.115.182.171  77.453 ms
+traceroute,github.com,140.82.121.3,12,timeout,,,12  *
+traceroute,github.com,140.82.121.3,13,timeout,,,13  *
+traceroute,github.com,140.82.121.3,14,timeout,,,14  *
+traceroute,github.com,140.82.121.3,15,timeout,,,15  *
+traceroute,github.com,140.82.121.3,16,timeout,,,16  *
+traceroute,github.com,140.82.121.3,17,timeout,,,17  *
+traceroute,github.com,140.82.121.3,18,timeout,,,18  *
+traceroute,github.com,140.82.121.3,19,timeout,,,19  *
+traceroute,github.com,140.82.121.3,20,timeout,,,20  *
+traceroute,github.com,140.82.121.3,21,timeout,,,21  *
+traceroute,github.com,140.82.121.3,22,timeout,,,22  *
+traceroute,github.com,140.82.121.3,23,timeout,,,23  *
+traceroute,github.com,140.82.121.3,24,timeout,,,24  *
+traceroute,github.com,140.82.121.3,25,timeout,,,25  *
+traceroute,github.com,140.82.121.3,26,timeout,,,26  *
+traceroute,github.com,140.82.121.3,27,timeout,,,27  *
+traceroute,github.com,140.82.121.3,28,timeout,,,28  *
+traceroute,github.com,140.82.121.3,29,timeout,,,29  *
+traceroute,github.com,140.82.121.3,30,timeout,,,30  *
