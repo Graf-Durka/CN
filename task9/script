@@ -1,0 +1,82 @@
+#!/bin/bash
+set -euo pipefail
+
+COMPOSE_FILE="docker-compose.api.yml"
+CAP_DIR="captures"
+
+mkdir -p "$CAP_DIR"
+
+if ! docker compose version >/dev/null 2>&1; then
+  echo "docker compose is not available"
+  exit 1
+fi
+
+echo "[1/8] Starting API lab containers"
+docker compose -f "$COMPOSE_FILE" up -d --build
+
+echo "[2/8] Installing client tools"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "apk add --no-cache curl iputils tcpdump >/dev/null"
+
+echo "[3/8] Checking IPv4 and IPv6 addresses"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "ip -4 addr show eth0 && ip -6 addr show eth0"
+
+echo "[4/8] Waiting for API readiness"
+READY=0
+for _ in $(seq 1 40); do
+  if docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -4 -s -o /dev/null http://api4:5000/get_data"; then
+    READY=1
+    break
+  fi
+  sleep 1
+done
+
+if [[ "$READY" -ne 1 ]]; then
+  echo "API did not become ready in time"
+  docker compose -f "$COMPOSE_FILE" logs --no-color --tail=80 api4 api6
+  exit 1
+fi
+
+READY6=0
+for _ in $(seq 1 40); do
+  if docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -6 -g -s -o /dev/null http://[fd42:4242:4243::11]:5000/get_data"; then
+    READY6=1
+    break
+  fi
+  sleep 1
+done
+
+if [[ "$READY6" -ne 1 ]]; then
+  echo "IPv6 API did not become ready in time"
+  docker compose -f "$COMPOSE_FILE" logs --no-color --tail=80 api6
+  exit 1
+fi
+
+echo "[5/8] Verifying API over IPv4 and IPv6"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -4 -sS -o /dev/null http://api4:5000/get_data"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -6 -g -sS -o /dev/null http://[fd42:4242:4243::11]:5000/get_data"
+
+echo "[6/8] Capturing IPv4 API packets"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "tcpdump -i eth0 -nn -c 20 ip and tcp port 5000 -w /tmp/api_ipv4.pcap" >/tmp/api_ipv4_capture.log 2>&1 &
+PID4=$!
+sleep 1
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -4 -sS http://api4:5000/get_data >/dev/null"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -4 -sS -X DELETE http://api4:5000/clear >/dev/null"
+wait "$PID4"
+
+echo "[7/8] Capturing IPv6 API packets"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "tcpdump -i eth0 -nn -c 20 ip6 and tcp port 5000 -w /tmp/api_ipv6.pcap" >/tmp/api_ipv6_capture.log 2>&1 &
+PID6=$!
+sleep 1
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -6 -g -sS http://[fd42:4242:4243::11]:5000/get_data >/dev/null"
+docker compose -f "$COMPOSE_FILE" exec -T client sh -lc "curl -6 -g -sS -X DELETE http://[fd42:4242:4243::11]:5000/clear >/dev/null"
+wait "$PID6"
+
+echo "[8/8] Exporting captures"
+docker compose -f "$COMPOSE_FILE" cp client:/tmp/api_ipv4.pcap "$CAP_DIR/api_ipv4.pcap" >/dev/null
+docker compose -f "$COMPOSE_FILE" cp client:/tmp/api_ipv6.pcap "$CAP_DIR/api_ipv6.pcap" >/dev/null
+
+echo "[9/9] Comparing API packets"
+bash compare_api_packets.sh
+
+echo "Done. Files:"
+ls -1 "$CAP_DIR" | grep -E '^api_'

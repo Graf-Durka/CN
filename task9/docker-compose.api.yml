@@ -1,0 +1,99 @@
+services:
+  pg-db:
+    image: postgres:15
+    container_name: ipv6-api-db
+    environment:
+      POSTGRES_DB: steam_db
+      POSTGRES_USER: denis
+      POSTGRES_PASSWORD: "grafdurka242006"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U denis -d steam_db"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      api-lab-net:
+        ipv4_address: 172.30.0.30
+        ipv6_address: fd42:4242:4243::30
+        aliases:
+          - db_container
+
+  api4:
+    build:
+      context: ../task5_6
+      dockerfile: Dockerfile
+    container_name: ipv6-api-server4
+    environment:
+      GITHUB_LOGIN: "stub"
+      GITHUB_PASSWORD: "stub"
+      # Эти переменные не используются кодом, но оставим
+      POSTGRES_NAME: steam_db
+      POSTGRES_DB: steam_db
+      POSTGRES_USER: denis
+      POSTGRES_PASSWORD: "grafdurka242006"
+      DB_HOST: db_container
+      DB_PORT: "5432"
+      # стандартные переменные libpq
+      PGHOST: db_container
+      PGPORT: 5432
+      PGUSER: denis
+      PGPASSWORD: "grafdurka242006"
+      PGDATABASE: steam_db
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+    depends_on:
+      pg-db:
+        condition: service_healthy
+    networks:
+      api-lab-net:
+        ipv4_address: 172.30.0.10
+        ipv6_address: fd42:4242:4243::10
+
+  api6:
+    build:
+      context: ../task5_6
+      dockerfile: Dockerfile
+    container_name: ipv6-api-server6
+    environment:
+      GITHUB_LOGIN: "stub"
+      GITHUB_PASSWORD: "stub"
+      POSTGRES_NAME: steam_db
+      POSTGRES_DB: steam_db
+      POSTGRES_USER: denis
+      POSTGRES_PASSWORD: "grafdurka242006"
+      DB_HOST: db_container
+      DB_PORT: "5432"
+      PGHOST: db_container
+      PGPORT: 5432
+      PGUSER: denis
+      PGPASSWORD: "grafdurka242006"
+      PGDATABASE: steam_db
+    command: ["uvicorn", "main:app", "--host", "::", "--port", "5000"]
+    depends_on:
+      pg-db:
+        condition: service_healthy
+    networks:
+      api-lab-net:
+        ipv4_address: 172.30.0.11
+        ipv6_address: fd42:4242:4243::11
+
+  client:
+    image: alpine:3.20
+    container_name: ipv6-api-client
+    command: ["sh", "-c", "sleep infinity"]
+    depends_on:
+      - api4
+      - api6
+    networks:
+      api-lab-net:
+        ipv4_address: 172.30.0.20
+        ipv6_address: fd42:4242:4243::20
+
+networks:
+  api-lab-net:
+    name: ipv46-api-lab-net
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      config:
+        - subnet: 172.30.0.0/24
+        - subnet: fd42:4242:4243::/64
